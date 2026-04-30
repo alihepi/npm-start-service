@@ -19,9 +19,7 @@ function stopNpm() {
   npmProcess = null;
 }
 
-app.on("window-all-closed", (e) => {
-  e.preventDefault();
-});
+app.on("window-all-closed", () => {});
 
 app.whenReady().then(() => {
   app.setAppUserModelId("IMS Server");
@@ -29,13 +27,13 @@ app.whenReady().then(() => {
   startNpm();
 
   tray = new Tray(path.join(__dirname, "icon.png"));
-  tray.setToolTip("IMS Server - Calisiyor");
+  tray.setToolTip("IMS Server");
 
   const menu = Menu.buildFromTemplate([
-    { label: "Arayuzu Ac", click: () => shell.openExternal("http://localhost:5173") },
-    { label: "API Ac",     click: () => shell.openExternal("http://localhost:3000") },
+    { label: "Arayuzu Ac", click: () => { require("child_process").exec("start http://localhost:5173"); } },
+    { label: "API Ac",     click: () => { require("child_process").exec("start http://localhost:3000"); } },
     { type: "separator" },
-    { label: "Yeniden Baslat", click: () => { stopNpm(); startNpm(); } },
+    { label: "Yeniden Baslat", click: () => { stopNpm(); setTimeout(startNpm, 1000); } },
     { type: "separator" },
     { label: "Cikis", click: () => { stopNpm(); app.quit(); } },
   ]);
