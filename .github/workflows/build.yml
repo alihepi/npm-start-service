@@ -25,10 +25,10 @@ jobs:
         shell: powershell
         run: |
           Add-Type -AssemblyName System.Drawing
-          $bmp = New-Object System.Drawing.Bitmap(64, 64)
+          $bmp = New-Object System.Drawing.Bitmap(256, 256)
           $g = [System.Drawing.Graphics]::FromImage($bmp)
-          $g.FillRectangle([System.Drawing.Brushes]::Blue, 0, 0, 64, 64)
-          $g.FillRectangle([System.Drawing.Brushes]::White, 24, 8, 16, 48)
+          $g.FillRectangle([System.Drawing.Brushes]::Blue, 0, 0, 256, 256)
+          $g.FillRectangle([System.Drawing.Brushes]::White, 96, 32, 64, 192)
           $bmp.Save("icon.png", [System.Drawing.Imaging.ImageFormat]::Png)
 
       - name: Install dependencies
