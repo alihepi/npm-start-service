@@ -10,19 +10,19 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Setup Python
-        uses: actions/setup-python@v5
+      - name: Setup Node
+        uses: actions/setup-node@v4
         with:
-          python-version: "3.12"
+          node-version: "18"
 
-      - name: Install dependencies
-        run: pip install pystray pillow pyinstaller
+      - name: Install pkg
+        run: npm install -g pkg
 
       - name: Build EXE
-        run: pyinstaller --onefile --noconsole --collect-all pystray --collect-all PIL --name "npm-start-service" npm_start_service.py
+        run: pkg index.js --target node18-win-x64 --output npm-start-service.exe
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
           name: npm-start-service
-          path: dist\npm-start-service.exe
+          path: npm-start-service.exe
