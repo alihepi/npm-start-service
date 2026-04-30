@@ -7,6 +7,8 @@ on:
 jobs:
   build:
     runs-on: windows-latest
+    env:
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
       - uses: actions/checkout@v4
 
@@ -41,4 +43,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: npm-start-service
-          path: dist\*.exe
+          path: dist\npm-start-service Setup 1.0.0.exe
