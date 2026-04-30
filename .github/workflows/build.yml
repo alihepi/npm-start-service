@@ -1,4 +1,4 @@
-﻿name: Build EXE
+name: Build EXE
 
 on:
   push:
@@ -15,7 +15,14 @@ jobs:
         with:
           node-version: "18"
 
+      - name: Create files
+        shell: powershell
+        run: |
+          $pkg = '{"name":"npm-start-service","version":"1.0.0","description":"IMS Launcher","author":"alihepi","main":"main.js","scripts":{"dist":"electron-builder --win --x64"},"devDependencies":{"electron":"^28.0.0","electron-builder":"^24.0.0"}}'
+          [System.IO.File]::WriteAllText("package.json", $pkg, [System.Text.UTF8Encoding]::new($false))
+
       - name: Create icon
+        shell: powershell
         run: |
           Add-Type -AssemblyName System.Drawing
           $bmp = New-Object System.Drawing.Bitmap(64, 64)
@@ -23,7 +30,6 @@ jobs:
           $g.FillRectangle([System.Drawing.Brushes]::Blue, 0, 0, 64, 64)
           $g.FillRectangle([System.Drawing.Brushes]::White, 24, 8, 16, 48)
           $bmp.Save("icon.png", [System.Drawing.Imaging.ImageFormat]::Png)
-        shell: powershell
 
       - name: Install dependencies
         run: npm install
