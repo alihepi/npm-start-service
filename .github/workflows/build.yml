@@ -20,7 +20,7 @@ jobs:
       - name: Create files
         shell: powershell
         run: |
-          $pkg = '{"name":"npm-start-service","version":"1.0.0","description":"IMS Launcher","author":"alihepi","main":"main.js","scripts":{"dist":"electron-builder --win --x64"},"devDependencies":{"electron":"^28.0.0","electron-builder":"^24.0.0"}}'
+          $pkg = '{"name":"npm-start-service","version":"1.0.0","description":"IMS Launcher","author":"alihepi","main":"main.js","scripts":{"dist":"electron-builder --win --x64"},"build":{"appId":"com.alihepi.imsserver","win":{"target":"portable"},"portable":{"requestExecutionLevel":"user"}},"devDependencies":{"electron":"^28.0.0","electron-builder":"^24.0.0"}}'
           [System.IO.File]::WriteAllText("package.json", $pkg, [System.Text.UTF8Encoding]::new($false))
 
       - name: Create icon
@@ -43,4 +43,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: npm-start-service
-          path: dist\npm-start-service Setup 1.0.0.exe
+          path: dist\*.exe
