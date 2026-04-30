@@ -1,4 +1,4 @@
-const { app, Tray, Menu, shell } = require("electron");
+const { app, Tray, Menu } = require("electron");
 const { exec, execSync } = require("child_process");
 const path = require("path");
 
@@ -17,14 +17,18 @@ function stopNpm() {
   npmProcess = null;
 }
 
+function openUrl(url) {
+  exec("start " + url, { windowsHide: true });
+}
+
 app.on("ready", () => {
   app.setAppUserModelId("IMS Server");
   startNpm();
   tray = new Tray(path.join(__dirname, "icon.png"));
-  tray.setToolTip("IMS Server - Calisiyor");
+  tray.setToolTip("IMS Server");
   tray.setContextMenu(Menu.buildFromTemplate([
-    { label: "Arayuzu Ac",     click: () => shell.openExternal("http://localhost:5173") },
-    { label: "API Ac",         click: () => shell.openExternal("http://localhost:3000") },
+    { label: "Arayuzu Ac",     click: () => openUrl("http://localhost:5173") },
+    { label: "API Ac",         click: () => openUrl("http://localhost:3000") },
     { type: "separator" },
     { label: "Yeniden Baslat", click: () => { stopNpm(); startNpm(); } },
     { label: "Cikis",          click: () => { stopNpm(); app.quit(); } },
