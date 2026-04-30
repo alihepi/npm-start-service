@@ -19,7 +19,7 @@ jobs:
         run: pip install pystray pillow pyinstaller
 
       - name: Build EXE
-        run: pyinstaller --onefile --noconsole --name "npm-start-service" npm_start_service.py
+        run: pyinstaller --onefile --noconsole --collect-all pystray --collect-all PIL --name "npm-start-service" npm_start_service.py
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
